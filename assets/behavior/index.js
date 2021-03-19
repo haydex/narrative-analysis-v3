@@ -155,6 +155,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         ungroupButtonClickListener(event) {
 
+            if (event.currentTarget.parentElement.classList.contains(this.selectedClass)) {
+
+                event.currentTarget.parentElement.click();
+
+            }
+
             event.currentTarget.parentElement.remove();
 
             var noOfChosenItems = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
@@ -202,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
 
                 this.narrativesColumn.classList.add(this.activeClass);
-                this.entities.forEach(element => element.classList.remove(this.selectedClass));
+                document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li").forEach(element => element.classList.remove(this.selectedClass));
                 event.currentTarget.classList.add(this.selectedClass);
                 this.narrativesItemsList.classList.add(this.displayedClass);
                 this.narrativesNoOfItems.innerHTML = this.narratives.length;
