@@ -169,6 +169,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
 
+            event.stopPropagation();
+
         }
 
         entitiesCancelButtonClickListener(event) {
@@ -187,30 +189,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
         entitiesClickListener(event) {
 
-            if (!this.editMode) {
+            if (event.currentTarget.classList.contains(this.selectedClass)) {
+            
+                event.currentTarget.classList.remove(this.selectedClass);
+                this.narrativesColumn.classList.remove(this.activeClass);
+                this.narrativesItemsList.scrollTop = 0;
+                this.narrativesItemsList.classList.remove(this.displayedClass);
+                this.narrativesNoOfItems.innerHTML = 0;
+                var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
+                if (narrativeSelected) narrativeSelected.click();
 
-                if (event.currentTarget.classList.contains(this.selectedClass)) {
-                
-                    event.currentTarget.classList.remove(this.selectedClass);
-                    this.narrativesColumn.classList.remove(this.activeClass);
-                    this.narrativesItemsList.scrollTop = 0;
-                    this.narrativesItemsList.classList.remove(this.displayedClass);
-                    this.narrativesNoOfItems.innerHTML = 0;
-                    var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
-                    if (narrativeSelected) narrativeSelected.click();
+            } else {
 
-                } else {
-
-                    this.narrativesColumn.classList.add(this.activeClass);
-                    this.entities.forEach(element => element.classList.remove(this.selectedClass));
-                    event.currentTarget.classList.add(this.selectedClass);
-                    this.narrativesItemsList.classList.add(this.displayedClass);
-                    this.narrativesNoOfItems.innerHTML = this.narratives.length;
-                    this.narrativesItemsList.scrollTop = 0;
-                    var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
-                    if (narrativeSelected) narrativeSelected.click();
-
-                }
+                this.narrativesColumn.classList.add(this.activeClass);
+                this.entities.forEach(element => element.classList.remove(this.selectedClass));
+                event.currentTarget.classList.add(this.selectedClass);
+                this.narrativesItemsList.classList.add(this.displayedClass);
+                this.narrativesNoOfItems.innerHTML = this.narratives.length;
+                this.narrativesItemsList.scrollTop = 0;
+                var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
+                if (narrativeSelected) narrativeSelected.click();
 
             }
 
