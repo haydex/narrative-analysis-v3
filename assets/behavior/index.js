@@ -30,9 +30,10 @@ document.addEventListener("DOMContentLoaded", function() {
             /* Entities Column */
             this.entitiesNoOfItems = document.querySelector("div#narrative-tree div#entities-column div.head div.counter span");
             this.entities = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li");
+            this.entitiesItemsList = document.querySelector("div#narrative-tree div#entities-column ul.items-list");
             this.choices = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice");
             this.controls = document.querySelector("div#narrative-tree div#entities-column div#entities-controls");
-            this.entitiesConfirmButton = document.querySelector("div#narrative-tree div#entities-column div#entities-controls button#confirm-button");
+            this.entitiesCancelButton = document.querySelector("div#narrative-tree div#entities-column div#entities-controls button#cancel-button");
             this.entitiesGroupButton = document.querySelector("div#narrative-tree div#entities-column div#entities-controls button#group-button");
             this.noOfChosenItemsElement = document.querySelector("div#narrative-tree div#entities-column div#entities-controls button#group-button div#group-count");
             this.numberOfSelectedEntities = 0;
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.displayedClass= "displayed";
             this.activeClass = "active";
             this.chosenClass = "chosen";
+            this.groupClass = "group";
 
             this.initialize();
 
@@ -70,7 +72,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             this.entitiesNoOfItems.innerHTML = this.entities.length;
 
-            this.entitiesConfirmButton.addEventListener("click", this.entitiesConfirmButtonClickListener.bind(this));
+            this.entitiesCancelButton.addEventListener("click", this.entitiesCancelButtonClickListener.bind(this));
+            this.entitiesGroupButton.addEventListener("click", this.entitiesGroupButtonClickListener.bind(this));
 
             for (var i = 0; i < this.entities.length; i++) {
 
@@ -98,7 +101,77 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }
 
-        entitiesConfirmButtonClickListener(event) {
+        entitiesGroupButtonClickListener(event) {
+
+            var entitiesChosen = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
+
+            if (entitiesChosen.length > 1) {
+
+                var clone = document.querySelector("div#narrative-tree div#entities-column ul.items-list > li").cloneNode(true);
+
+                clone.classList.remove(this.selectedClass);
+                clone.classList.add(this.groupClass);
+                clone.querySelector("div#choice").classList.remove(this.chosenClass);
+                clone.querySelector("ul.subitems-list").innerHTML = "";
+
+                for (var i = 0; i < entitiesChosen.length; i++) {
+
+                    var subitmes = entitiesChosen[i].parentElement.querySelectorAll("ul.subitems-list > li");
+
+                    for (var j = 0; j < subitmes.length; j++) {
+
+                        var subitemClone = subitmes[j].cloneNode(true);
+                        clone.querySelector("ul.subitems-list").appendChild(subitemClone);
+
+                    }
+
+                }
+
+                clone.querySelector("button.ungroup-button").addEventListener("click", this.ungroupButtonClickListener.bind(this));
+                clone.addEventListener("click", this.entitiesClickListener.bind(this));
+                clone.querySelector("div#choice").addEventListener("click", this.choicesClickListener.bind(this));
+
+                // clone.click();
+                this.entitiesItemsList.insertBefore(clone, this.entitiesItemsList.firstChild);
+
+
+
+                clone.scrollIntoView ({
+                    block: "start",
+                    behavior: "smooth",
+                });
+
+                this.controls.classList.remove(this.displayedClass);
+
+                for (var i = 0; i < entitiesChosen.length; i++) {
+
+                    entitiesChosen[i].classList.remove(this.chosenClass);
+
+                }
+
+            }
+
+        }
+
+        ungroupButtonClickListener(event) {
+
+            event.currentTarget.parentElement.remove();
+
+            var noOfChosenItems = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
+
+            if (noOfChosenItems.length) {
+
+                this.noOfChosenItemsElement.innerHTML = noOfChosenItems.length;
+
+            } else {
+
+                this.controls.classList.remove(this.displayedClass);
+
+            }
+
+        }
+
+        entitiesCancelButtonClickListener(event) {
 
             this.controls.classList.remove(this.displayedClass);
 
@@ -207,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 event.currentTarget.classList.remove(this.chosenClass);
                 var noOfChosenItems = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
-                console.log(noOfChosenItems.length);
+
                 if (noOfChosenItems.length) {
 
                     this.noOfChosenItemsElement.innerHTML = noOfChosenItems.length;

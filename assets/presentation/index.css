@@ -334,7 +334,7 @@ div#entities-controls button  {
 
 }
 
-div#entities-controls button#confirm-button  {
+div#entities-controls button#cancel-button  {
 
     background-position-x: -162px;
 
@@ -407,8 +407,8 @@ div#narrative-tree div#entities-column ul.items-list > li div#choice {
     top: 50%;
     transform: translate(0%, -50%);
     border-radius: 24px;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid var(--blueishLightest);
     cursor: pointer;
     z-index: 1000;
@@ -468,6 +468,19 @@ div#narrative-tree div#entities-column ul.items-list > li:not(.selected):hover u
 
     background-color: var(--whitishLight);
     color: var(--blueishDark);
+
+}
+
+div#narrative-tree div#entities-column ul.items-list > li.group button.ungroup-button  {
+
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: var(--interface);
+    background-position: -314px -961px;
+    position: absolute;
+    top: 0px;
+    right: -25px;
 
 }
 
