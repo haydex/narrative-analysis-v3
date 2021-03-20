@@ -30,6 +30,7 @@
     --highlighter: #d8ff3e;
     --whitish: white;
     --whitishLight: rgba(255, 255, 255, 0.3);
+    --whitishLight2: rgba(255, 255, 255, 0.5);
     --blue2: rgb(0, 136, 255);
     --blue2Light: rgba(0, 136, 255, 0.3);
     --blueishDark: rgb(23, 57, 76);
@@ -418,7 +419,6 @@ div#narrative-tree div#entities-column ul.items-list > li div#choice {
 div#narrative-tree div#entities-column ul.items-list > li div#choice:hover {
 
     border-color: var(--blue2);
-    //background-color: var(--blue2);
 
 }
 
@@ -488,6 +488,84 @@ div#narrative-tree div#entities-column ul.items-list > li.group button.ungroup-b
 
 /** Narratives Column **/
 
+div#narrative-tree div#narratives-column ul.items-list > li p {
+
+    font-size: 16px;
+    outline: 0px;
+    transition: font-size 0.15s ease-out;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li.selected p {
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: font-size 0.15s ease-in;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li.selected.editing p {
+
+    border-bottom: 2px solid var(--whitishLight);
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls {
+
+    display: none;
+    width: 100%;
+    text-align: right;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li.selected div#narratives-controls {
+
+    display: block;
+    margin-top: 15px;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button {
+
+    width: 20px;
+    height: 20px;
+    background-image: var(--interface);
+    background-position: -420px -960px;
+    margin-left: 10px;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-confirm-button {
+
+    background-position: -464px -960px;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-cancel-button {
+
+    background-position: -511px -960px;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li.selected:not(.editing) div#narratives-controls button#narratives-confirm-button {
+
+    display: none;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li.selected:not(.editing) div#narratives-controls button#narratives-cancel-button {
+
+    display: none;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li.selected.editing div#narratives-controls button#narratives-edit-button {
+
+    display: none;
+
+}
 
 
 /** Posts Column **/

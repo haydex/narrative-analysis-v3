@@ -42,6 +42,9 @@ document.addEventListener("DOMContentLoaded", function() {
             this.narrativesNoOfItems = document.querySelector("div#narrative-tree div#narratives-column div.head div.counter span");
             this.narratives = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li");
             this.narrativesItemsList = document.querySelector("div#narrative-tree div#narratives-column ul.items-list");
+            this.narrativesEditButton = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-edit-button");
+            this.narrativesConfirmButton = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-Confirm-button");
+            this.narrativesCancelButton = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-cancel-button");
             this.narrativesColumn = document.querySelector("div#narrative-tree div#narratives-column");
             
             /* Posts Column */
@@ -63,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.activeClass = "active";
             this.chosenClass = "chosen";
             this.groupClass = "group";
+            this.editingClass = "editing";
 
             this.initialize();
 
@@ -98,6 +102,25 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.choices[i].addEventListener("click", this.choicesClickListener.bind(this));
 
             }
+
+            for (var i = 0; i < this.narrativesEditButton.length; i++) {
+
+                this.narrativesEditButton[i].addEventListener("click", this.narrativesEditButtonClickListener.bind(this));
+
+            }
+
+        }
+
+        narrativesEditButtonClickListener(event) {
+
+            var originalText = event.currentTarget.parentElement.parentElement.querySelector("p").innerHTML;
+
+            event.currentTarget.parentElement.parentElement.classList.add(this.editingClass);
+            event.currentTarget.parentElement.parentElement.querySelector("p").setAttribute("contenteditable", "true");
+
+            // this.narratives.removeEv
+
+            event.stopPropagation();
 
         }
 
