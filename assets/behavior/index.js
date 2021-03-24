@@ -276,6 +276,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (narrativeSelected) narrativeSelected.click();
 
                 }
+            } else {
+
+                editingStatus.scrollIntoView({
+                    block: "center",
+                    behavior: "smooth",
+                });
             }
 
         }
@@ -283,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function() {
         narrativesClickListener(event) {
             
             var editingStatus = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.editing");
-
+            
             if (!editingStatus) { 
 
                 if (!event.currentTarget.classList.contains(this.editingClass)) {
@@ -311,6 +317,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
 
+            } else {
+                
+                editingStatus.scrollIntoView({
+                    block: "center",
+                    behavior: "smooth",
+                });
             }
             
 
