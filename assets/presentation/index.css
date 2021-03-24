@@ -286,6 +286,12 @@ div#narrative-tree div.column ul.items-list > li button.ungroup-button {
 
 }
 
+div#narrative-tree div.column ul.items-list > li button.ungroup-button:hover {
+
+    opacity: 0.5;
+
+}
+
 
 
 /** Entities Column **/
@@ -376,7 +382,7 @@ div#narrative-tree div#entities-column ul.items-list > li {
     background-color: transparent;
     font-size: 14px;
     border-radius: 24px;
-    padding: 6px;
+    padding: 0px;
     margin-left: 26px;
     width: 82%;
 
@@ -433,6 +439,8 @@ div#narrative-tree div#entities-column ul.items-list > li ul.subitems-list {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+    border-radius: 22px;
+    padding: 6px;
 
 }
 
@@ -458,16 +466,15 @@ div#narrative-tree div#entities-column ul.items-list > li.selected ul.subitems-l
 
 }
 
-div#narrative-tree div#entities-column ul.items-list > li:not(.selected):hover {
+div#narrative-tree div#entities-column ul.items-list > li:not(.selected) ul.subitems-list:hover {
 
     background-color: var(--blue2Light);
 
 }
 
-div#narrative-tree div#entities-column ul.items-list > li:not(.selected):hover ul.subitems-list li {
+div#narrative-tree div#entities-column ul.items-list > li:not(.selected) ul.subitems-list:hover li {
 
     background-color: var(--whitishLight);
-    color: var(--blueishDark);
 
 }
 
@@ -506,9 +513,16 @@ div#narrative-tree div#narratives-column ul.items-list > li.selected p {
 
 }
 
+div#narrative-tree div#narratives-column ul.items-list > li.selected.editing {
+
+    cursor: default;
+
+}
+
 div#narrative-tree div#narratives-column ul.items-list > li.selected.editing p {
 
     border-bottom: 2px solid var(--whitishLight);
+    cursor: text;
 
 }
 
@@ -517,6 +531,12 @@ div#narrative-tree div#narratives-column ul.items-list > li div#narratives-contr
     display: none;
     width: 100%;
     text-align: right;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button:hover {
+
+    opacity: 0.5;
 
 }
 

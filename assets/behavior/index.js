@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.narratives = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li");
             this.narrativesItemsList = document.querySelector("div#narrative-tree div#narratives-column ul.items-list");
             this.narrativesEditButton = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-edit-button");
-            this.narrativesConfirmButton = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-Confirm-button");
+            this.narrativesConfirmButton = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-confirm-button");
             this.narrativesCancelButton = document.querySelectorAll("div#narrative-tree div#narratives-column ul.items-list > li div#narratives-controls button#narratives-cancel-button");
             this.narrativesColumn = document.querySelector("div#narrative-tree div#narratives-column");
             
@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.chosenClass = "chosen";
             this.groupClass = "group";
             this.editingClass = "editing";
+            this.originalText = "";
 
             this.initialize();
 
@@ -109,16 +110,47 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
 
+            for (var i = 0; i < this.narrativesCancelButton.length; i++) {
+
+                this.narrativesCancelButton[i].addEventListener("click", this.narrativesCancelButtonClickListener.bind(this));
+
+            }
+
+            for (var i = 0; i < this.narrativesConfirmButton.length; i++) {
+
+                this.narrativesConfirmButton[i].addEventListener("click", this.narrativesConfirmButtonClickListener.bind(this));
+
+            }
+
+        }
+
+        narrativesConfirmButtonClickListener(event) {
+
+            event.currentTarget.parentElement.parentElement.classList.remove(this.editingClass);
+            event.currentTarget.parentElement.parentElement.querySelector("p").setAttribute("contenteditable", "false");
+
+            event.stopPropagation();
+
+        }
+
+        narrativesCancelButtonClickListener(event) {
+
+            event.currentTarget.parentElement.parentElement.querySelector("p").innerHTML = this.originalText;
+
+            event.currentTarget.parentElement.parentElement.classList.remove(this.editingClass);
+            event.currentTarget.parentElement.parentElement.querySelector("p").setAttribute("contenteditable", "false");
+
+            event.stopPropagation();
+
         }
 
         narrativesEditButtonClickListener(event) {
 
-            var originalText = event.currentTarget.parentElement.parentElement.querySelector("p").innerHTML;
+            this.originalText = event.currentTarget.parentElement.parentElement.querySelector("p").innerHTML;
 
             event.currentTarget.parentElement.parentElement.classList.add(this.editingClass);
             event.currentTarget.parentElement.parentElement.querySelector("p").setAttribute("contenteditable", "true");
-
-            // this.narratives.removeEv
+            event.currentTarget.parentElement.parentElement.querySelector("p").focus();
 
             event.stopPropagation();
 
@@ -218,55 +250,69 @@ document.addEventListener("DOMContentLoaded", function() {
 
         entitiesClickListener(event) {
 
-            if (event.currentTarget.classList.contains(this.selectedClass)) {
-            
-                event.currentTarget.classList.remove(this.selectedClass);
-                this.narrativesColumn.classList.remove(this.activeClass);
-                this.narrativesItemsList.scrollTop = 0;
-                this.narrativesItemsList.classList.remove(this.displayedClass);
-                this.narrativesNoOfItems.innerHTML = 0;
-                var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
-                if (narrativeSelected) narrativeSelected.click();
+            var editingStatus = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.editing");
 
-            } else {
+            if (!editingStatus) {
 
-                this.narrativesColumn.classList.add(this.activeClass);
-                document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li").forEach(element => element.classList.remove(this.selectedClass));
-                event.currentTarget.classList.add(this.selectedClass);
-                this.narrativesItemsList.classList.add(this.displayedClass);
-                this.narrativesNoOfItems.innerHTML = this.narratives.length;
-                this.narrativesItemsList.scrollTop = 0;
-                var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
-                if (narrativeSelected) narrativeSelected.click();
+                if (event.currentTarget.classList.contains(this.selectedClass)) {
+                
+                    event.currentTarget.classList.remove(this.selectedClass);
+                    this.narrativesColumn.classList.remove(this.activeClass);
+                    this.narrativesItemsList.scrollTop = 0;
+                    this.narrativesItemsList.classList.remove(this.displayedClass);
+                    this.narrativesNoOfItems.innerHTML = 0;
+                    var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
+                    if (narrativeSelected) narrativeSelected.click();
 
+                } else {
+
+                    this.narrativesColumn.classList.add(this.activeClass);
+                    document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li").forEach(element => element.classList.remove(this.selectedClass));
+                    event.currentTarget.classList.add(this.selectedClass);
+                    this.narrativesItemsList.classList.add(this.displayedClass);
+                    this.narrativesNoOfItems.innerHTML = this.narratives.length;
+                    this.narrativesItemsList.scrollTop = 0;
+                    var narrativeSelected = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.selected ");
+                    if (narrativeSelected) narrativeSelected.click();
+
+                }
             }
 
         }
 
         narrativesClickListener(event) {
+            
+            var editingStatus = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.editing");
 
-            if (event.currentTarget.classList.contains(this.selectedClass)) {
+            if (!editingStatus) { 
 
-                event.currentTarget.classList.remove(this.selectedClass);
-                this.postsColumn.classList.remove(this.activeClass);
-                this.postsItemsList.scrollTop = 0;
-                this.postsItemsList.classList.remove(this.displayedClass);
-                this.postsNoOfItems.innerHTML = 0;
-                var postSelected = document.querySelector("div#narrative-tree div#posts-column ul.items-list > li.selected ");
-                if (postSelected) postSelected.click();
+                if (!event.currentTarget.classList.contains(this.editingClass)) {
+                    if (event.currentTarget.classList.contains(this.selectedClass)) {
 
-            } else {
+                        event.currentTarget.classList.remove(this.selectedClass);
+                        this.postsColumn.classList.remove(this.activeClass);
+                        this.postsItemsList.scrollTop = 0;
+                        this.postsItemsList.classList.remove(this.displayedClass);
+                        this.postsNoOfItems.innerHTML = 0;
+                        var postSelected = document.querySelector("div#narrative-tree div#posts-column ul.items-list > li.selected ");
+                        if (postSelected) postSelected.click();
 
-                this.postsColumn.classList.add(this.activeClass);
-                this.narratives.forEach(element => element.classList.remove(this.selectedClass));
-                event.currentTarget.classList.add(this.selectedClass);
-                this.postsItemsList.classList.add(this.displayedClass);
-                this.postsNoOfItems.innerHTML = this.posts.length;
-                this.postsItemsList.scrollTop = 0;
-                var postSelected = document.querySelector("div#narrative-tree div#posts-column ul.items-list > li.selected ");
-                if (postSelected) postSelected.click();
+                    } else {
+
+                        this.postsColumn.classList.add(this.activeClass);
+                        this.narratives.forEach(element => element.classList.remove(this.selectedClass));
+                        event.currentTarget.classList.add(this.selectedClass);
+                        this.postsItemsList.classList.add(this.displayedClass);
+                        this.postsNoOfItems.innerHTML = this.posts.length;
+                        this.postsItemsList.scrollTop = 0;
+                        var postSelected = document.querySelector("div#narrative-tree div#posts-column ul.items-list > li.selected ");
+                        if (postSelected) postSelected.click();
+
+                    }
+                }
 
             }
+            
 
         }
 
@@ -329,6 +375,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialization
 
-    let general = new NarrativeTree();
+    let narrativeTree = new NarrativeTree();
 
 });
