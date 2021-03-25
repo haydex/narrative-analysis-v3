@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.chosenClass = "chosen";
             this.groupClass = "group";
             this.editingClass = "editing";
+            this.focusedClass = "focused";
             this.originalText = "";
 
             this.initialize();
@@ -282,6 +283,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     block: "center",
                     behavior: "smooth",
                 });
+
+                
+                editingStatus.classList.add(this.focusedClass);
+
+                setTimeout(function () {
+                    document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.focused").classList.remove("focused");
+                }, 600);
+                
+                
             }
 
         }
@@ -323,6 +333,18 @@ document.addEventListener("DOMContentLoaded", function() {
                     block: "center",
                     behavior: "smooth",
                 });
+
+                if (!event.currentTarget.classList.contains(this.editingClass)) {
+
+                    editingStatus.classList.add(this.focusedClass);
+
+                    setTimeout(function () {
+                        document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.focused").classList.remove("focused");
+                        console.log("hello");
+                    }, 600);
+
+                }
+
             }
             
 
