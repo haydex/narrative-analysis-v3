@@ -129,7 +129,7 @@ button {
 
     background-color: transparent;
     border: 0px;
-    /* outline: 0px; */
+    outline: 0px;
     cursor: pointer;
 
 }
@@ -169,7 +169,8 @@ div#narrative-tree {
 
     position: absolute;
     display: flex;
-    height: 500px;
+    height: 80%;
+    width: 80%;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -179,7 +180,7 @@ div#narrative-tree div.column {
 
     border-left: 2px solid var(--blueishLighter);
     padding-left: 10px;
-    width: 300px;
+    width: 25%;
     display: inline-flex;
     flex-direction: column;
     position: relative;

@@ -211,23 +211,58 @@ document.addEventListener("DOMContentLoaded", function() {
 
         ungroupButtonClickListener(event) {
 
-            if (event.currentTarget.parentElement.classList.contains(this.selectedClass)) {
+            var editingStatus = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.editing");
 
-                event.currentTarget.parentElement.click();
+            if (!editingStatus) {
 
-            }
+                if (event.currentTarget.parentElement.classList.contains(this.selectedClass)) {
 
-            event.currentTarget.parentElement.remove();
+                    event.currentTarget.parentElement.click();
 
-            var noOfChosenItems = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
+                }
 
-            if (noOfChosenItems.length) {
+                event.currentTarget.parentElement.remove();
 
-                this.noOfChosenItemsElement.innerHTML = noOfChosenItems.length;
+                var noOfChosenItems = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
+
+                if (noOfChosenItems.length) {
+
+                    this.noOfChosenItemsElement.innerHTML = noOfChosenItems.length;
+
+                } else {
+
+                    this.controls.classList.remove(this.displayedClass);
+
+                }
+            } else if (!event.currentTarget.parentElement.classList.contains(this.selectedClass)) {
+
+                event.currentTarget.parentElement.remove();
+
+                var noOfChosenItems = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
+
+                if (noOfChosenItems.length) {
+
+                    this.noOfChosenItemsElement.innerHTML = noOfChosenItems.length;
+
+                } else {
+
+                    this.controls.classList.remove(this.displayedClass);
+
+                }
 
             } else {
 
-                this.controls.classList.remove(this.displayedClass);
+                editingStatus.scrollIntoView({
+                    block: "center",
+                    behavior: "smooth",
+                });
+
+
+                editingStatus.classList.add(this.focusedClass);
+
+                setTimeout(function () {
+                    document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.focused").classList.remove("focused");
+                }, 600);
 
             }
 
