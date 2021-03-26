@@ -81,6 +81,13 @@ document.addEventListener("DOMContentLoaded", function() {
             this.entitiesCancelButton.addEventListener("click", this.entitiesCancelButtonClickListener.bind(this));
             this.entitiesGroupButton.addEventListener("click", this.entitiesGroupButtonClickListener.bind(this));
 
+            for (var i = 0; i < this.removeEntityButton.length; i++) {
+
+                this.removeEntityButton[i].addEventListener("click", this.removeEntityButtonClickListener.bind(this));
+                console.log(this.removeEntityButton[i]);
+
+            }
+
             for (var i = 0; i < this.entities.length; i++) {
 
                 this.entities[i].addEventListener("click", this.entitiesClickListener.bind(this));
@@ -122,6 +129,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.narrativesConfirmButton[i].addEventListener("click", this.narrativesConfirmButtonClickListener.bind(this));
 
             }
+
+        }
+
+        removeEntityButtonClickListener(event) {
+
+            console.log("ehlo");
+
+            event.stopPropagation();
 
         }
 
