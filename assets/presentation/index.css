@@ -355,12 +355,6 @@ div#entities-controls button:hover  {
 
 }
 
-div#narrative-tree div#entities-column {
-
-    width: 350px;
-
-}
-
 div#narrative-tree div#entities-column form {
 
     margin-bottom: 10px;
@@ -450,6 +444,7 @@ div#narrative-tree div#entities-column ul.items-list > li ul.subitems-list li {
 
     background-color: var(--blueishLightest2);
     font-size: 14px;
+    font-weight: 600;
     color: var(--blueishDark);
     border-radius: 20px;
     padding: 10px;
@@ -461,7 +456,6 @@ div#narrative-tree div#entities-column ul.items-list > li.selected ul.subitems-l
 
     background-color: var(--whitishLight);
     color: var(--whitish);
-    font-weight: bold;
     font-size: 14px;
     border-radius: 20px;
     display: inline-block;
@@ -490,6 +484,28 @@ div#narrative-tree div#entities-column ul.items-list > li.group button.ungroup-b
     position: absolute;
     top: 0px;
     right: -25px;
+
+}
+
+div#narrative-tree div#entities-column ul.items-list > li.group ul.subitems-list li button.remove-button {
+
+    width: 12px;
+    height: 10px;
+    background-image: var(--interface);
+    background-position: -582px -963px;
+    margin-left: 7px;
+
+}
+
+div#narrative-tree div#entities-column ul.items-list > li.selected.group ul.subitems-list li button.remove-button {
+
+    background-position: -641px -963px;
+
+}
+
+div#narrative-tree div#entities-column ul.items-list > li.group ul.subitems-list li button.remove-button:hover {
+
+    opacity: 0.5;
 
 }
 
