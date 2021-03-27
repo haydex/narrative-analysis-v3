@@ -125,14 +125,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }
 
-        removeEntityButtonClickListener(event) {
-
-            console.log("ehlo");
-
-            event.stopPropagation();
-
-        }
-
         narrativesConfirmButtonClickListener(event) {
 
             event.currentTarget.parentElement.parentElement.classList.remove(this.editingClass);
@@ -167,8 +159,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         entitiesGroupButtonClickListener(event) {
 
+            /* Get list of chosen entities */
             var entitiesChosen = document.querySelectorAll("div#narrative-tree div#entities-column ul.items-list > li div#choice.chosen");
 
+            /* Create a new group of chosen entities by cloning the first item in the entities list */
             if (entitiesChosen.length > 1) {
 
                 var clone = document.querySelector("div#narrative-tree div#entities-column ul.items-list > li").cloneNode(true);
@@ -191,22 +185,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 }
 
+                /* Setup event listeners for the new group */
                 clone.querySelector("button.ungroup-button").addEventListener("click", this.ungroupButtonClickListener.bind(this));
                 clone.addEventListener("click", this.entitiesClickListener.bind(this));
                 clone.querySelector("div#choice").addEventListener("click", this.choicesClickListener.bind(this));
+                var removeButtons = clone.querySelectorAll("button.remove-button");
 
-                // clone.click();
+                for (i=0; i < removeButtons.length; i++) {
+
+                    removeButtons[i].addEventListener("click", this.removeButtonClickListener.bind(this));
+
+                }
+
+                /* Insert the newly created group into the beginning of the entities list */
                 this.entitiesItemsList.insertBefore(clone, this.entitiesItemsList.firstChild);
 
 
-
+                /* Scroll to top of the entities list */
                 clone.scrollIntoView ({
                     block: "start",
                     behavior: "smooth",
                 });
 
+
+                /* Hide controls */
                 this.controls.classList.remove(this.displayedClass);
 
+                /* Deselect chosen entities */
                 for (var i = 0; i < entitiesChosen.length; i++) {
 
                     entitiesChosen[i].classList.remove(this.chosenClass);
@@ -214,6 +219,47 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
             }
+
+        }
+
+        removeButtonClickListener(event) {
+
+            var items = event.currentTarget.parentElement.parentElement.querySelectorAll("li");
+            var ungroupButton = event.currentTarget.parentElement.parentElement.parentElement.querySelector("button.ungroup-button");
+
+            if (items.length > 1) { 
+
+                if (items.length == 2) { 
+                        
+                    ungroupButton.click();
+                
+                } else {
+                    
+                    var editingStatus = document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.editing");
+
+                    if (!((editingStatus) && ((event.currentTarget.parentElement.parentElement.parentElement.classList.contains(this.selectedClass))))) {
+
+                        event.currentTarget.parentElement.remove();
+                        
+                    } else {
+
+                        editingStatus.scrollIntoView({
+                            block: "center",
+                            behavior: "smooth",
+                        });
+        
+                        editingStatus.classList.add(this.focusedClass);
+        
+                        setTimeout(function () {
+                            document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.focused").classList.remove("focused");
+                        }, 600);
+                    }
+                
+                }
+
+            }
+
+            event.stopPropagation();
 
         }
 
