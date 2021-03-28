@@ -769,7 +769,7 @@ ul#submenu li:nth-child(even) {
 
 ul#submenu li:hover {
 
-    background-color: var(--blue2);
+    background-color: var(--whitishLight);
     color: var(--whitish);
 
 }
