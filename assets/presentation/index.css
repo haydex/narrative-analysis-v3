@@ -39,12 +39,17 @@
     --blueishLightest: rgba(23, 57, 76, 0.2);
     --blueishLightest2: rgba(243, 245, 246, 1);
     --greyishLight: #F8F8F8;
-    --greyishLight2: rgb(234 234 234);
-    --greenish: #41c16c;
+    --greyishLight2: rgb(234, 234, 234);
+    --greenish: rgba(65, 193, 108, 1);
+    --greenish2: rgba(0, 191, 140, 1);
+    --greenish2Lighter: #1ddaa7;
+    --greenish2Lighter2: rgba(177, 255, 234, 1);
     --greenishLight: #b4ffb45c;
     --greenishLight2: #eff9f2;
-    --greenishDark: rgb(184 255 184);
-    --blueishLight: rgb(151 244 255);
+    --greenishDark: rgb(184, 255, 184);
+    --purplish: rgba(192, 118, 255, 1);
+    --purplishLighter: rgba(237, 217, 255, 1);
+    --blueishLight: rgb(151, 244, 255);
     --yellow: yellow;
     --yellowLight: rgb(255, 255, 223);
     --blue: rgb(0, 162, 255);
@@ -561,7 +566,19 @@ div#narrative-tree div#entities-column ul.items-list > li.group ul.subitems-list
 /** Narratives Column **/
 
 @keyframes blink { 
-   50% { background-color: var(--blueBlink) } 
+   50% { background-color: var(--greenish2Lighter) } 
+}
+
+div#narrative-tree div#narratives-column.column ul.items-list > li:not(.selected):hover {
+
+    background-color: var(--greenish2Lighter2);
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li div.connector {
+
+    background-color: var(--greenish2);
+
 }
 
 div#narrative-tree div#narratives-column ul.items-list > li.focused {
@@ -575,6 +592,12 @@ div#narrative-tree div#narratives-column ul.items-list > li p {
     font-size: 16px;
     /* outline: 0px; */
     transition: font-size 0.15s ease-out;
+
+}
+
+div#narrative-tree div#narratives-column ul.items-list > li.selected {
+
+    background-color: var(--greenish2);
 
 }
 
@@ -665,9 +688,39 @@ div#narrative-tree div#narratives-column ul.items-list > li.selected.editing div
 
 /** Posts Column **/
 
+div#narrative-tree div#posts-column.column ul.items-list > li:not(.selected):hover {
+
+    background-color: var(--purplishLighter);
+
+}
+
+div#narrative-tree div#posts-column.column.active {
+
+    border-left-color: var(--greenish2);
+
+}
+
+div#narrative-tree div#posts-column ul.items-list > li.selected {
+
+    background-color: var(--purplish);
+
+}
+
+div#narrative-tree div#posts-column ul.items-list > li div.connector {
+
+    background-color: var(--purplish);
+
+}
+
 
 
 /** Preview Column **/
+
+div#narrative-tree div#preview-column.column.active {
+
+    border-left-color: var(--purplish);
+
+}
 
 div#narrative-tree div#preview-column div.head div.counter {
 
