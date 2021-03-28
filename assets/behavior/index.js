@@ -58,6 +58,11 @@ document.addEventListener("DOMContentLoaded", function() {
             this.preview = document.querySelector("div#narrative-tree div#preview-column .items-list.post");
             this.previewColumn = document.querySelector("div#narrative-tree div#preview-column");
             this.previewImage = document.querySelector("div#narrative-tree div#preview-column .items-list.post img.post-image");
+
+            /* Submenu */
+            this.submenu = document.querySelector("ul#submenu");
+            this.sortWrapper = document.querySelectorAll("div#narrative-tree div.column div.head div#sort-items div#sort-wrapper");
+            this.sortType = document.querySelectorAll("div#narrative-tree div.column div.head div#sort-items p#sort-type");
             
             /* Other */
             this.editMode = false;
@@ -80,6 +85,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
             this.entitiesCancelButton.addEventListener("click", this.entitiesCancelButtonClickListener.bind(this));
             this.entitiesGroupButton.addEventListener("click", this.entitiesGroupButtonClickListener.bind(this));
+
+            /* Submenu */
+            for (var i = 0; i < this.sortWrapper.length; i++) {
+
+                this.sortWrapper[i].addEventListener("click", this.sortWrapperClickListener.bind(this));
+
+            }
+
 
             for (var i = 0; i < this.entities.length; i++) {
 
@@ -123,6 +136,53 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
 
+        }
+
+        sortWrapperClickListener(event) {
+
+            var submenus = document.querySelectorAll("ul#submenu.displayed");
+            var eventCurrentTarget = event.currentTarget;
+                
+            for (var i=0; i < submenus.length; i++) {
+                submenus[i].remove();
+            }
+            /* Clone submenu */
+            var clone = this.submenu.cloneNode(true);
+
+            /* Insert cloned submenu into sort-wrapper div */
+            event.currentTarget.appendChild(clone);
+
+            /* Setup event listeners */
+            event.currentTarget.querySelector("ul#submenu").addEventListener("click", function(event) {
+                
+                if (event.target.classList.contains("submenuItem")) {
+                    eventCurrentTarget.querySelector("p#sort-type").innerHTML = event.target.innerHTML;
+                }
+                var submenus = document.querySelectorAll("ul#submenu.displayed");
+                
+                for (var i=0; i < submenus.length; i++) {
+                    submenus[i].remove();
+                }
+
+                event.stopPropagation();
+            });
+
+            /* Show submenu */
+            event.currentTarget.querySelector("ul#submenu").classList.add(this.displayedClass);
+
+            /* Listen to window click event */
+            window.addEventListener("click", function(event) {
+                
+                var submenus = document.querySelectorAll("ul#submenu.displayed");
+                
+                for (var i=0; i < submenus.length; i++) {
+                    submenus[i].remove();
+                }
+
+                event.stopPropagation();
+            });
+
+            event.stopPropagation();
         }
 
         narrativesConfirmButtonClickListener(event) {
@@ -429,7 +489,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     setTimeout(function () {
                         document.querySelector("div#narrative-tree div#narratives-column ul.items-list > li.focused").classList.remove("focused");
-                        console.log("hello");
                     }, 600);
 
                 }
