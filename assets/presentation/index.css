@@ -213,22 +213,67 @@ div#narrative-tree div.column .items-list > li {
 
 }
 
+div#narrative-tree div.column div.head {
+
+    display: block;
+
+}
+
 div#narrative-tree div.column div.head div.title {
 
+    display: inline-block;
     font-size: 26px;
     font-weight: bold;
 
 }
 
-div#narrative-tree div.column div.head button.sort-button {
+div#narrative-tree div.column div.head div#sort-items {
 
-    display: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 5px;
+
+}
+
+div#narrative-tree div.column div.head div#sort-items div#sort-wrapper:hover {
+
+    opacity: 0.5;
+
+}
+
+div#narrative-tree div.column div.head div#sort-items div#sort-wrapper {
+
+    display: inline-block;
+    cursor: pointer;
+
+}
+
+div#narrative-tree div.column div.head div#sort-items p {
+
+    display: inline-block;
+
+}
+
+div#narrative-tree div.column div.head div#sort-items p#sort-type {
+
+    font-weight: 800;
+
+}
+
+div#narrative-tree div.column div.head div#sort-items button.sort-button {
+
+    width: 10px;
+    height: 7px;
+    background-image: var(--interface);
+    background-position: -490px -1045px;
 
 }
 
 div#narrative-tree div.column div.head div.counter {
 
     display: inline-block;
+    vertical-align: text-bottom;
     color: var(--whitish);
     background-color: var(--blueishDark);
     font-size: 13px;
