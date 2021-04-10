@@ -1,0 +1,278 @@
+/*
+
+
+
+	" Reimplement the wheel to either learn, or make it better. "
+
+    https://www.haydex.io/
+    https://www.youtube.com/watch?v=QOlTGA3RE8I
+    
+    Product Name: Btracker
+	Description: Tracking Blog's data.
+	Beneficiary: COSMOS
+	
+	Copyright © 1988 - 2021 HAYDEX, All Rights Reserved.
+	
+	
+	
+*/
+
+
+
+/** Global settings **/
+
+:root {
+    
+    /* theme */
+
+    --reddish: #fd4444;
+    --yellowish: #fffa56;
+    --highlighter: #d8ff3e;
+    --whitish: white;
+    --whitishLight: rgba(255, 255, 255, 0.3);
+    --whitishLight2: rgba(255, 255, 255, 0.5);
+    --blue2: rgb(0, 136, 255);
+    --blue2Light: rgba(0, 136, 255, 0.3);
+    --blueishDark: rgb(23, 57, 76);
+    --blueishDarker: rgb(16, 40, 53);
+    --blueishLighter: rgba(23, 57, 76, 0.3);
+    --blueishLightest: rgba(23, 57, 76, 0.2);
+    --blueishLightest2: rgba(243, 245, 246, 1);
+    --greyishLight: #F8F8F8;
+    --greyishLight2: rgb(234, 234, 234);
+    --greenish: rgba(65, 193, 108, 1);
+    --greenish2: rgba(0, 191, 140, 1);
+    --greenish2Lighter: #1ddaa7;
+    --greenish2Lighter2: rgba(177, 255, 234, 1);
+    --greenishLight: #b4ffb45c;
+    --greenishLight2: #eff9f2;
+    --greenishDark: rgb(184, 255, 184);
+    --purplish: rgba(192, 118, 255, 1);
+    --purplishLighter: rgba(237, 217, 255, 1);
+    --blueishLight: rgb(151, 244, 255);
+    --yellow: yellow;
+    --yellowLight: rgb(255, 255, 223);
+    --blue: rgb(0, 162, 255);
+    --blackishTransparent2: rgba(0, 0, 0, 0.2);
+    --blueishDarkScroll: rgba(23, 57, 76, 0.8);
+    --blueishDarkScrollHover: rgba(23, 57, 76, 1);
+    --blueBlink: rgb(70, 168, 255);
+
+    /* radius */
+
+    --radius5: 5px;
+    --radius13: 13px;
+    --radius15: 15px;
+    --radius25: 25px;
+    --radius1000: 1000px;
+
+    --interface: url(/narrative-analysis-v3/assets/interface/interface.svg);
+    --cursor: url(/narrative-analysis-v3/assets/interface/cursor.svg);
+    
+}
+
+html {
+
+    color: var(--blueishDark);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x:hidden;
+    box-sizing: border-box; /* https://www.w3schools.com/css/css3_box-sizing.asp   https://www.youtube.com/watch?v=ADDvQlerEx4&list=PLu8EoSxDXHP5CIFvt9-ze3IngcdAc2xKG&index=2 */
+
+}
+
+body {
+
+	background-color:var(--whitish);
+    margin: 0px;
+    box-sizing: inherit;
+
+}
+
+body.editing {
+
+	background-color:var(--greenishLight);
+
+}
+
+a {
+
+    text-decoration: none;
+    color: inherit;
+
+}
+
+a:hover {
+
+    color: inherit;
+
+}
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+    -ms-overflow-style: none;
+    scrollbar-width: none !important;
+
+}
+
+ul {
+
+    list-style: none;
+
+}
+
+body.freeze {
+
+    overflow: hidden;
+    
+}
+
+button {
+
+    background-color: transparent;
+    border: 0px;
+    outline: 0px;
+    cursor: pointer;
+
+}
+
+textarea {
+
+    color: var(--blueishDark);
+    font-family: "Roboto", sans-serif;
+
+}
+
+img {
+
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+
+}
+
+span.highligher {
+
+    background-color: var(--yellowish);
+    font-weight: bold;
+
+}
+
+
+
+/**** Narrative Tree Dashboard ****/
+
+/** General **/
+
+div#narrative-tree-dashboard {
+
+    position: absolute;
+    width: 440px;
+    height: 325px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+} 
+
+div#narrative-tree-dashboard div.keyword-wrapper {
+
+    width: 100px;
+    height: 220px;
+    font-size: 10px;
+    text-align: center;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform-origin: top;
+    transform: translate(-50%) rotate(-75deg);
+
+} 
+
+div#narrative-tree-dashboard div.keyword-wrapper div#connector {
+
+    margin:0px auto;
+    width: 2px;
+    height: 45px;
+    background-color: var(--blueishLighter);
+
+}
+
+div#narrative-tree-dashboard div.keyword-wrapper div#keyword {
+
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: var(--blue2);
+    color: var(--whitish);
+    border-radius: var(--radius1000);
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 100px;
+
+}
+
+div#narrative-tree-dashboard div.keyword-wrapper ul#narrative-wrapper {
+
+    display: inline-block;
+    text-align: left;
+    margin: 0px auto;
+    margin-top: 10px;
+    height: 150px;
+    font-weight: 500;
+
+}
+
+div#narrative-tree-dashboard div.keyword-wrapper ul#narrative-wrapper li {
+
+    display: inline-block;
+    writing-mode: vertical-rl;
+    vertical-align: top;
+    margin-left: 5px;
+
+}
+
+/** Keyword 2 **/
+
+div#narrative-tree-dashboard div#keyword-wrapper2.keyword-wrapper {
+
+    transform: translate(-50%) rotate(180deg);
+
+}
+
+div#narrative-tree-dashboard div#keyword-wrapper2.keyword-wrapper div#keyword {
+
+    transform: rotate(180deg);
+    background-color: var(--purplish);
+
+}
+
+/** Keyword 3 **/
+
+div#narrative-tree-dashboard div#keyword-wrapper3.keyword-wrapper {
+
+    transform: translate(-50%) rotate(75deg);
+
+}
+
+div#narrative-tree-dashboard div#keyword-wrapper3.keyword-wrapper div#keyword {
+
+    background-color: var(--greenish2);
+
+}
+
+div#narrative-tree-dashboard div#keyword-wrapper3.keyword-wrapper ul#narrative-wrapper  {
+
+    transform: rotate(180deg);
+
+}
+
+
+
+
+
+
