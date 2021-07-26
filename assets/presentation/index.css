@@ -183,8 +183,8 @@ nav.titlebar {
 div#narrative-tree {
 
     display: flex;
-    height: 600px;
-    max-width: 1400px;
+    height: 100vh;
+    width: 100%;
     min-width: 1105px;
     padding: 50px;
     margin: 0px auto;
